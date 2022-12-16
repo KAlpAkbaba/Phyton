@@ -1,0 +1,473 @@
+from gtts import gTTS
+import os
+import speech_recognition as sr
+import webbrowser
+import pyautogui
+import time
+import datetime
+import feedparser
+import forecastio
+import bs4
+from bs4 import BeautifulSoup as soup
+from urllib.request import urlopen
+import smtplib
+
+while 1:
+annem = "meltemmmakyoll@gmail.com"
+burhan = "burhan.can8313@gmail.com"
+ilayda = "ilaydalayla@hotmail.com"
+cengiz = "cen.cengiz@hotmail.com"
+mert = "mertefekanlikilic@live.com"
+esat = "sedaat.ozdemir@gmail.com"
+berk = "berk.bulan@gmail.com "
+
+currentDT = datetime.datetime.now()
+currentTM = currentDT.strftime("%H:%M")
+print(currentTM)
+print("a")
+r = sr.Recognizer()
+with sr.Microphone() as source:
+    komut = r.listen(source, phrase_time_limit=5)
+    line = ""
+    try:
+        line = r.recognize_google(komut, language='tr-tr')
+        line = line.lower()
+        r = sr.Recognizer()
+        if 'orada mısın' or 'friday' or 'fıraydey' in line:
+            with sr.Microphone() as source:
+                tts = gTTS(text='Buyrun efendim', lang="tr")
+                tts.save("merhaba.mp3")
+                os.system("merhaba.mp3")
+                time.sleep(2)
+                os.system('taskkill /f /im wmplayer.exe')
+                print("Birşeyler Söyle!")
+                audio = r.listen(source, phrase_time_limit=7)
+                data = ""
+            try:
+                data = r.recognize_google(audio, language='tr-tr')
+                data = data.lower()
+                r = sr.Recognizer()
+                if "türkçe müzik aç" in data:
+                    tts = gTTS(text='Hangi parçayı açmamı istersiniz efendim', lang="tr")
+                    tts.save("istekparça.mp3")
+                    os.system("istekparça.mp3")
+                    time.sleep(5)
+                    print("İstek")
+                    with sr.Microphone() as source:
+                        music = r.listen(source, phrase_time_limit=7)
+                        mistek = ""
+                        mistek = sr.Recognizer()
+                        mistek = r.recognize_google(music, language='tr-tr')
+                        mistek = mistek.lower()
+                        tts = gTTS(text="Hemen istediğiniz parçayı açıyorum efendim", lang="tr")
+                        tts.save("tamam.mp3")
+                        os.system("tamam.mp3")
+                        webbrowser.get("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s").open(
+                            "https://www.youtube.com/results?search_query=" + mistek)
+                        time.sleep(7)
+                        pyautogui.press('tab')
+                        pyautogui.press('enter')
+                        pyautogui.press('volumeup', presses=50)
+                else:
+                    print("")
+
+                if "yabancı müzik aç" in data:
+                    tts = gTTS(text='Hangi parçayı açmamı istersiniz efendim', lang="tr")
+                    tts.save("istekparça.mp3")
+                    os.system("istekparça.mp3")
+                    time.sleep(5)
+                    print("İstek")
+                    with sr.Microphone() as source:
+                        music = r.listen(source, phrase_time_limit=7)
+                        mistek = ""
+
+                        mistek = sr.Recognizer()
+                        mistek = r.recognize_google(music)
+                        mistek = mistek.lower()
+                        tts = gTTS(text="Hemen istediğiniz parçayı açıyorum efendim", lang="tr")
+                        tts.save("tamam.mp3")
+                        os.system("tamam.mp3")
+                        webbrowser.get("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s").open(
+                            "https://www.youtube.com/results?search_query=" + mistek)
+                        time.sleep(7)
+                        pyautogui.press('tab')
+                        pyautogui.press('enter')
+                        pyautogui.press('volumeup', presses=50)
+                if data == 'müziğin sesini kapat':
+                    tts = gTTS(text="Hemen efendim", lang="tr")
+                    tts.save("seskapat.mp3")
+                    os.system("seskapat.mp3")
+                    pyautogui.press('volumemute')
+                if data == 'müziğin sesini aç' or data == 'müziğin sesini arttır':
+                    tts = gTTS(text="Hemen efendim", lang="tr")
+                    tts.save("sesac.mp3")
+                    os.system("sesac.mp3")
+                    pyautogui.press('volumeup', presses=30)
+                if data == 'müziğin sesini komple aç':
+                    tts = gTTS(text="Hemen efendim", lang="tr")
+                    tts.save("sesfull.mp3")
+                    os.system("sesfull.mp3")
+                    pyautogui.press('volumeup', presses=100)
+                    pyautogui.press('volumeup', presses=100)
+                if data == 'müziğin sesini azalt' or data == 'müziğin sesini kıs':
+                    tts = gTTS(text="Hemen efendim", lang="tr")
+                    tts.save("azalt.mp3")
+                    os.system("azalt.mp3")
+                    pyautogui.press('volumedown', presses=20)
+
+                if data == 'film aç':
+                    tts = gTTS(text="Hangi filmi açmamı istersiniz efendim", lang="tr")
+                    tts.save("film.mp3")
+                    os.system("film.mp3")
+                    time.sleep(4)
+                    print("istek")
+                    with sr.Microphone() as source:
+                        film = r.listen(source, timeout=1, phrase_time_limit=7)
+                        fistek = ""
+                        fistek = sr.Recognizer()
+                        fistek = r.recognize_google(film, language="tr-tr")
+                        fistek = fistek.lower()
+                        webbrowser.get("C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s").open(
+                            "https://www.google.com")
+                        time.sleep(3)
+                        pyautogui.hotkey("fn", "f5")
+                        time.sleep(2)
+                        pyautogui.typewrite(fistek+" izle")
+                        time.sleep(2)
+                        pyautogui.press('enter')
+                        time.sleep(2)
+                        pyautogui.press('tab', presses=18)
+                        time.sleep(2)
+                        pyautogui.press('enter')
+                if data == 'saat kaç':
+                    currentDT = datetime.datetime.now()
+                    currentTM = currentDT.strftime("%H:%M")
+                    tts = gTTS(text="saat" + currentTM + "efendim", lang="tr")
+                    tts.save("saat.mp3")
+                    os.system("saat.mp3")
+                if data == "bugün hava nasıl":
+                    api_key = 'e08e429ae032ec400a77566a9027cc72'
+                    lat = 41.03508
+                    lng = 28.983311
+                    forecast = forecastio.load_forecast(api_key, lat, lng)
+                    byHour = forecast.hourly()
+                    print(byHour.summary)
+                    print(byHour.icon)
+                    if byHour.icon == "partly-cloudy-day":
+                        tts = gTTS(text="Bugün hava parçalı bulutlu efendim", lang="tr")
+                        tts.save("buluth.mp3")
+                        os.system("buluth.mp3")
+                    elif byHour.icon == "sunny" or byHour.icon == "clear-day":
+                        tts = gTTS(text="Hava güneşli efendim ince giyinmenizi öneririm", lang="tr")
+                        tts.save("gunesh.mp3")
+                        os.system("gunesh.mp3")
+                    elif byHour.icon == "fair":
+                        tts = gTTS(text="Bugün hava güzel gözüküyor efendim", lang="tr")
+                        tts.save("parcalibuluth.mp3")
+                        os.system("parcalibuluth.mp3")
+                    elif byHour.icon == "mostly-cloudy":
+                        tts = gTTS(text="Bugün hava çok bulutlu efendim yağmur riski var dikkatli olun", lang="tr")
+                        tts.save("cokbuluth.mp3")
+                        os.system("cokbuluth.mp3")
+                    elif byHour.icon == "thunderstorms":
+                        tts = gTTS(text="Bugün hava fırtınalı efendim şemsiye almanızı öneririm", lang="tr")
+                        tts.save("firtinah.mp3")
+                        os.system("firtinah.mp3")
+                    elif byHour.icon == "isolated-thundershowers":
+                        tts = gTTS(text="Bugün hava yağmurlu efendim şemsiye almanızı öneririm", lang="tr")
+                        tts.save("yagmurh.mp3")
+                        os.system("yagmurh.mp3")
+                if data == "haberleri oku":
+                    news_url = "https://news.google.com/rss?hl=tr&gl=TR&ceid=TR:tr"
+                    Client = urlopen(news_url)
+                    xml_page = Client.read()
+                    Client.close()
+                    soup_page = soup(xml_page, "xml")
+                    news_list = soup_page.findAll("item")
+                    for news in news_list:
+                        print(news.title.text)
+                        print(news.link.text)
+                        print("-" * 60)
+                        haber = news.title.text
+                        tts = gTTS(text=haber, lang="tr")
+                        tts.save("haberler1.mp3")
+                        os.system("haberler1.mp3")
+                        time.sleep(10)
+                        pyautogui.hotkey('alt', 'f4')
+                if data == "bana fıkra anlat":
+                    tts = gTTS(text="Bir ara hangi dergi idi hatırlamıyorum şöyle bir mektubu yayınlamışlardır ",
+                               lang="tr")
+                    tts.save("fıkra.mp3")
+                    os.system("fıkra.mp3")
+                    time.sleep(4)
+                    tts = gTTS(text="Yav programlarda hep press any key diye mesaj çıkıyor Ancak ben klavyede any ",
+                               lang="tr")
+                    tts.save("fıkra2.mp3")
+                    os.system("fıkra2.mp3")
+                    time.sleep(5)
+                    tts = gTTS(text="diye bir tuş bulamadım", lang="tr")
+                    tts.save("fıkra3.mp3")
+                    os.system("fıkra3.mp3")
+                if data == "bana karadeniz fıkrası anlat":
+                    tts = gTTS(text="arkadaşı karadenizliye sormuş Yanluzken kendu kendune konuşma uyun var midur",
+                               lang="tr")
+                    tts.save("karadenizfıkra.mp3")
+                    os.system("karadenizfıkra.mp3")
+                    time.sleep(5)
+                    tts = gTTS(text="ben kendu kendume konuşmam demiş karadenizli adamu gözümün onune getirirum ",
+                               lang="tr")
+                    tts.save("karadenizfıkra2.mp3")
+                    os.system("karadenizfıkra2.mp3")
+                    time.sleep(4)
+                    tts = gTTS(text="oylee konişirum", lang="tr")
+                    tts.save("karadenizfıkra3.mp3")
+                    os.system("karadenizfıkra3.mp3")
+                if data == "sana bir şey soracağım" or data == "araştır":
+                    tts = gTTS(text="Sizin için ne araştırmamı istersiniz efendim", lang="tr")
+                    tts.save("arastırma.mp3")
+                    os.system("arastırma.mp3")
+                    time.sleep(4)
+                    print("Araştırma")
+                    with sr.Microphone() as source:
+                        arastırma = r.listen(source, phrase_time_limit=7)
+                        soru = ""
+                        soru = sr.Recognizer()
+                        soru = r.recognize_google(arastırma, language="tr-tr")
+                        soru = soru.lower()
+                        tts = gTTS(text="Hemen araştırıyorum efendim", lang="tr")
+                        tts.save("arastırmatamam.mp3")
+                        os.system("arastırmatamam.mp3")
+                        webbrowser.get("C:/Users/admin/AppData/Local/Programs/Opera/launcher.exe %s").open(
+                            "https://tr.wikipedia.org/wiki/" + soru)
+                        print(soru)
+                if data == "program aç":
+                    tts = gTTS(text="Hangi programı açmamı istersiniz efendim", lang="tr")
+                    tts.save("program.mp3")
+                    os.system("program.mp3")
+                    time.sleep(4)
+                    print("Program İsmi")
+                    with sr.Microphone() as source:
+                        program = r.listen(source, phrase_time_limit=7)
+                        iprogram = ""
+                        iprogram = sr.Recognizer()
+                        iprogram = r.recognize_google(program, language="tr-tr")
+                        iprogram = iprogram.lower()
+                        pyautogui.press('win')
+                        time.sleep(1)
+                        pyautogui.typewrite(iprogram)
+                        time.sleep(1)
+                        pyautogui.press('enter')
+                        print(iprogram)
+                if data == "mail gönder":
+                    tts = gTTS(text="Gönderilicek kişi bellimi efendim", lang="tr")
+                    tts.save("mailgon.mp3")
+                    os.system("mailgon.mp3")
+                    time.sleep(3)
+                    print("Evet-Hayır")
+                    with sr.Microphone() as source:
+                        maili = r.listen(source, phrase_time_limit=5)
+                        istek = ""
+                        istek = sr.Recognizer()
+                        istek = r.recognize_google(maili, language="tr-tr")
+                        istek = istek.lower()
+                        print("?")
+                        if istek == "annem":
+                            tts = gTTS(text="Göndermek istediğiniz mesaj nedir efendim", lang="tr")
+                            tts.save("mailm.mp3")
+                            os.system("mailm.mp3")
+                            time.sleep(4)
+                            print("Mesaj")
+                            with sr.Microphone() as source:
+                                mailm = r.listen(source, phrase_time_limit=7)
+                                mail = ""
+                                mail = sr.Recognizer()
+                                mail = r.recognize_google(mailm, language="tr-tr")
+                                mail = mail.lower()
+                                email = 'alpakbaba8@gmail.com'
+                                password = 'Kalp123!'
+                                send_to_email = annem
+                                message = mail
+                                server = smtplib.SMTP('smtp.gmail.com', 587)
+                                server.starttls()
+                                server.login(email, password)
+                                server.sendmail(email, send_to_email, message)
+                                server.quit()
+                                tts = gTTS(text="Mailiniz gönderildi efendim",lang="tr")
+                                tts.save("gönderildi.mp3")
+                                os.system("gönderildi.mp3")
+                        if istek == "burhan":
+                            tts = gTTS(text="Göndermek istediğiniz mesaj nedir efendim", lang="tr")
+                            tts.save("mailm.mp3")
+                            os.system("mailm.mp3")
+                            time.sleep(4)
+                            print("Mesaj")
+                            with sr.Microphone() as source:
+                                mailm = r.listen(source, phrase_time_limit=7)
+                                mail = ""
+                                mail = sr.Recognizer()
+                                mail = r.recognize_google(mailm, language="tr-tr")
+                                mail = mail.lower()
+                                email = 'alpakbaba8@gmail.com'
+                                password = 'Kalp123!'
+                                send_to_email = burhan
+                                message = mail
+                                server = smtplib.SMTP('smtp.gmail.com', 587)
+                                server.starttls()
+                                server.login(email, password)
+                                server.sendmail(email, send_to_email, message)
+                                server.quit()
+                                tts = gTTS(text="Mailiniz gönderildi efendim",lang="tr")
+                                tts.save("gönderildi.mp3")
+                                os.system("gönderildi.mp3")
+                        if istek == "berk":
+                            tts = gTTS(text="Göndermek istediğiniz mesaj nedir efendim", lang="tr")
+                            tts.save("mailm.mp3")
+                            os.system("mailm.mp3")
+                            time.sleep(4)
+                            print("Mesaj")
+                            with sr.Microphone() as source:
+                                mailm = r.listen(source, phrase_time_limit=7)
+                                mail = ""
+                                mail = sr.Recognizer()
+                                mail = r.recognize_google(mailm, language="tr-tr")
+                                mail = mail.lower()
+                                email = 'alpakbaba8@gmail.com'
+                                password = 'Kalp123!'
+                                send_to_email = berk
+                                message = mail
+                                server = smtplib.SMTP('smtp.gmail.com', 587)
+                                server.starttls()
+                                server.login(email, password)
+                                server.sendmail(email, send_to_email, message)
+                                server.quit()
+                                tts = gTTS(text="Mailiniz gönderildi efendim",lang="tr")
+                                tts.save("gönderildi.mp3")
+                                os.system("gönderildi.mp3")
+                        if istek == "ilayda":
+                            tts = gTTS(text="Göndermek istediğiniz mesaj nedir efendim", lang="tr")
+                            tts.save("mailm.mp3")
+                            os.system("mailm.mp3")
+                            time.sleep(4)
+                            print("Mesaj")
+                            with sr.Microphone() as source:
+                                mailm = r.listen(source, phrase_time_limit=7)
+                                mail = ""
+                                mail = sr.Recognizer()
+                                mail = r.recognize_google(mailm, language="tr-tr")
+                                mail = mail.lower()
+                                email = 'alpakbaba8@gmail.com'
+                                password = 'Kalp123!'
+                                send_to_email = ilayda
+                                message = mail
+                                server = smtplib.SMTP('smtp.gmail.com', 587)
+                                server.starttls()
+                                server.login(email, password)
+                                server.sendmail(email, send_to_email, message)
+                                server.quit()
+                                tts = gTTS(text="Mailiniz gönderildi efendim",lang="tr")
+                                tts.save("gönderildi.mp3")
+                                os.system("gönderildi.mp3")
+                        if istek == "mert":
+                            tts = gTTS(text="Göndermek istediğiniz mesaj nedir efendim", lang="tr")
+                            tts.save("mailm.mp3")
+                            os.system("mailm.mp3")
+                            time.sleep(4)
+                            print("Mesaj")
+                            with sr.Microphone() as source:
+                                mailm = r.listen(source, phrase_time_limit=7)
+                                mail = ""
+                                mail = sr.Recognizer()
+                                mail = r.recognize_google(mailm, language="tr-tr")
+                                mail = mail.lower()
+                                email = 'alpakbaba8@gmail.com'
+                                password = 'Kalp123!'
+                                send_to_email = mert
+                                message = mail
+                                server = smtplib.SMTP('smtp.gmail.com', 587)
+                                server.starttls()
+                                server.login(email, password)
+                                server.sendmail(email, send_to_email, message)
+                                server.quit()
+                                tts = gTTS(text="Mailiniz gönderildi efendim",lang="tr")
+                                tts.save("gönderildi.mp3")
+                                os.system("gönderildi.mp3")
+                        if istek == "cengiz":
+                            tts = gTTS(text="Göndermek istediğiniz mesaj nedir efendim", lang="tr")
+                            tts.save("mailm.mp3")
+                            os.system("mailm.mp3")
+                            time.sleep(4)
+                            print("Mesaj")
+                            with sr.Microphone() as source:
+                                mailm = r.listen(source, phrase_time_limit=7)
+                                mail = ""
+                                mail = sr.Recognizer()
+                                mail = r.recognize_google(mailm, language="tr-tr")
+                                mail = mail.lower()
+                                email = 'alpakbaba8@gmail.com'
+                                password = 'Kalp123!'
+                                send_to_email = cengiz
+                                message = mail
+                                server = smtplib.SMTP('smtp.gmail.com', 587)
+                                server.starttls()
+                                server.login(email, password)
+                                server.sendmail(email, send_to_email, message)
+                                server.quit()
+                                tts = gTTS(text="Mailiniz gönderildi efendim",lang="tr")
+                                tts.save("gönderildi.mp3")
+                                os.system("gönderildi.mp3")
+                        if istek == "esat":
+                            tts = gTTS(text="Göndermek istediğiniz mesaj nedir efendim", lang="tr")
+                            tts.save("mailm.mp3")
+                            os.system("mailm.mp3")
+                            time.sleep(4)
+                            print("Mesaj")
+                            with sr.Microphone() as source:
+                                mailm = r.listen(source, phrase_time_limit=7)
+                                mail = ""
+                                mail = sr.Recognizer()
+                                mail = r.recognize_google(mailm, language="tr-tr")
+                                mail = mail.lower()
+                                email = 'alpakbaba8@gmail.com'
+                                password = 'Kalp123!'
+                                send_to_email = esat
+                                message = mail
+                                server = smtplib.SMTP('smtp.gmail.com', 587)
+                                server.starttls()
+                                server.login(email, password)
+                                server.sendmail(email, send_to_email, message)
+                                server.quit()
+                                tts = gTTS(text="Mailiniz gönderildi efendim",lang="tr")
+                                tts.save("gönderildi.mp3")
+                                os.system("gönderildi.mp3")
+                        if istek == "hayır":
+                            yenikisi = input("Göndermek İstediğiniz Kişinin Mailini Yazın :")
+                            tts = gTTS(text="Göndermek istediğiniz mesaj nedir efendim", lang="tr")
+                            tts.save("mailm.mp3")
+                            os.system("mailm.mp3")
+                            time.sleep(4)
+                            print("Mesaj")
+                            with sr.Microphone() as source:
+                                mailm = r.listen(source, phrase_time_limit=7)
+                                mail = ""
+                                mail = sr.Recognizer()
+                                mail = r.recognize_google(mailm, language="tr-tr")
+                                mail = mail.lower()
+                                email = 'alpakbaba8@gmail.com'
+                                password = 'Kalp123!'
+                                send_to_email = yenikisi
+                                message = mail
+                                server = smtplib.SMTP('smtp.gmail.com', 587)
+                                server.starttls()
+                                server.login(email, password)
+                                server.sendmail(email, send_to_email, message)
+                                server.quit()
+                                tts = gTTS(text="Mailiniz gönderildi efendim",lang="tr")
+                                tts.save("gönderildi.mp3")
+                                os.system("gönderildi.mp3")
+                line=""
+                komut=""
+
+            except sr.UnknownValueError:
+                print("Ne dediğini anlamadım")
+    except sr.UnknownValueError:
+        print("Ne dediğini anlamadım")
